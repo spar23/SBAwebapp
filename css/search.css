@@ -1,0 +1,95 @@
+#search-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(245, 246, 246, 0.6);
+  width: 100%;
+  height:100%;
+  padding:10px;
+}
+
+#pokemon-search {
+  flex:1;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+input,button,select {
+  width:100px;
+  height:60px;
+  text-align: center;
+}
+
+#poke-grid-container {
+  flex:4;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+}
+
+.poke-list-item {
+  background-color: #c2c2c9;
+  display: flex;
+  flex-direction: column;
+  width:10rem;
+  height:15rem;
+  border-radius: 10px;
+  padding: 5px;
+  margin:20px;
+  box-shadow: 3px 5px 12px rgba(0, 0, 0, 0.47);
+
+  justify-content: space-around;
+  align-items: center;
+}
+
+.poke-list-item .info-container {
+  flex:1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.poke-list-item .img-container {
+  flex:2;
+  width:100px;
+  height: 100px;
+}
+
+
+
+
+
+
+
+
+#loading-icon-container {
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+  height: 100vh;
+  width:100vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#loading-icon{
+  pointer-events: none;
+  position: fixed;
+  width:100px;
+  height:100px;
+
+  border-left: 3px solid black;
+  border-right: 3px solid black;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform:rotate(360deg);
+  }
+}

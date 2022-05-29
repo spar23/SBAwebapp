@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PokeTEK Search</title>
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/search.css">
+  <script defer src="../js/search.js"></script>
+</head>
+<body>
+
+  <div id="loading-icon-container">
+    <div id="loading-icon"></div>
+    <p>please wait</p>
+  </div>
+
+  <header>
+    <nav class="navbar">
+      <ul>
+        <li><a href="../index.html">HOME</a></li>
+        <li><a href="views/about.html">ABOUT</a></li>
+        <li><a href="views/search.html">SEARCH</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div id="search-container">
+    <form onsubmit="return false" id="pokemon-search">
+      <select name="pokefilter" id="pokefilter">
+        <option value="name">Name</option>
+        <option value="type">Type</option>
+      </select>
+      <span>
+        <input id="pokesearch-input" type="text" placeholder="search"/>
+      <button type="submit" id="poke-search-button">CLICK</button>
+      </span>
+    </form>
+
+
+    <div id="poke-grid-container"></div>
+  </div>
+</body>
+</html>
