@@ -76,6 +76,21 @@ function createPokemonCard(pokemon) {
 function createNotFound(){
   console.log("Sorry, no matches found");
   // add an html element that says no matches found
+
+  const errListItem = document.createElement("div");
+  errListItem.classList.add("poke-list-item");
+
+  const pokeInnerHTML = `
+    <div class="info-container">
+        <h2>MissingNo.</h2>
+        <p>No matching results</p>
+    </div>
+  <div class="img-container"><img src="../images/error.png">
+  </div>
+  `;
+
+  errListItem.innerHTML = pokeInnerHTML;
+  pokeGridContainer.appendChild(errListItem)
 }
 
 // API CALLS ----------------

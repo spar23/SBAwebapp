@@ -47,3 +47,25 @@ body {
 .navbar ul li a {
   color:white;
 }
+
+li {
+  padding:10px;
+  border: 1px solid rgba(255, 255, 255, 0);
+}
+
+li:hover {
+  animation: 1s hovered forwards;
+}
+
+.selected-link {
+  text-decoration: underline;
+  background-color: rgba(162, 162, 162, 0.34);
+  border-bottom-left-radius: 10px;
+}
+
+@keyframes hovered {
+
+  100% {
+    border: 1px solid rgba(255, 255, 255, 0.51);
+  }
+}
