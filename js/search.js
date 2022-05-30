@@ -60,7 +60,6 @@ const getAllPokemonByType = async type => {
   const res = await fetch(`${URL}/type/${type}`);
   const pokemonType = await res.json();
   const pokemon = [];
-  console.log(pokemonType.pokemon[0].pokemon.name);
 
   for(let i = 0; i < pokemonType.pokemon.length; i++) {
     const tempPoke = await getPokemonByName(pokemonType.pokemon[i].pokemon.name);
