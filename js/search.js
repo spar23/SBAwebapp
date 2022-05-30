@@ -1,3 +1,6 @@
+"use strict";
+console.log("search.js loaded");
+
 const URL = "https://pokeapi.co/api/v2";
 
 // DOM ELEMENTS
@@ -33,7 +36,7 @@ async function searchForPokemon(event){
       } else {
         createNotFound();
       }
-    })
+    });
   }
 
   else if (option === "type") {
@@ -70,7 +73,7 @@ function createPokemonCard(pokemon) {
 
   // Append card to the grid container
   pokeListItem.innerHTML = pokeInnerHTML;
-  pokeGridContainer.appendChild(pokeListItem)
+  pokeGridContainer.appendChild(pokeListItem);
 }
 
 function createNotFound(){
@@ -90,7 +93,7 @@ function createNotFound(){
   `;
 
   errListItem.innerHTML = pokeInnerHTML;
-  pokeGridContainer.appendChild(errListItem)
+  pokeGridContainer.appendChild(errListItem);
 }
 
 // API CALLS ----------------
@@ -110,7 +113,7 @@ async function getPokemonByName(name) {
       loading.style.opacity = '0';
       console.log("status from api call: " + responsePromise.status);
       // show lack of results from completed call in the dom
-      return null
+      return null;
 
     } else {
       // the .json method parses the json into a JavaScript object
