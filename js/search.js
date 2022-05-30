@@ -63,7 +63,9 @@ const getAllPokemonByType = async type => {
 
   for(let i = 0; i < pokemonType.pokemon.length; i++) {
     const tempPoke = await getPokemonByName(pokemonType.pokemon[i].pokemon.name);
-    pokemon.push(tempPoke);
+    if (tempPoke.sprites.front_default) {
+      pokemon.push(tempPoke);
+    }
   }
   return pokemon;
 }
