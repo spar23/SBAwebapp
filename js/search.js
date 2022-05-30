@@ -8,23 +8,48 @@ const selectField = document.getElementById("pokefilter");
 const loading = document.getElementById("loading-icon-container");
 
 // CHECK FOR FILTER AND SEARCH FOR POKEMON
-searchButton.onclick = async () => {
+// searchButton.onclick = searchForPokemon;  // via handler
+searchButton.addEventListener('click', searchForPokemon);
+
+async function searchForPokemon(event){
+  console.log("Clicked target ID: " + event.target.id);
   const searchVal = inputField.value.toLowerCase();
+  console.log("Serach value: " + searchVal);
+  // add loading to dom
   loading.style.opacity = "1";
   pokeGridContainer.innerHTML = "";
+  // get search type
   let option = selectField.value;
-  let pokemon = [];
-  if (option === "name") {pokemon[0] = await getPokemonByName(`${searchVal}`)}
-  else if (option === "type") {pokemon = await getAllPokemonByType(`${searchVal}`)};
-
-  for(let i = 0; i < pokemon.length; i++) {
-    createPokemonCard(pokemon[i]);
+  // let pokemon = [];
+  if (option === "name") {
+    // create a promise object
+    const pokemonNamePromise = getPokemonByName(`${searchVal}`);
+    // when promise is fulfilled, execute callback function
+    pokemonNamePromise.then( (pokemon) => {
+      loading.style.opacity = '0';
+      if (pokemon != null) {
+        console.log("Pokemon found: " + pokemon);
+        createPokemonCard(pokemon);
+      } else {
+        createNotFound();
+      }
+    })
   }
 
-  loading.style.opacity = '0';
+  else if (option === "type") {
+    const pokemonPromise = getAllPokemonByType(`${searchVal}`);
+    pokemonPromise.then((pokemon) => {
+      console.log("All Pokemon for type found: " + pokemon);
+      loading.style.opacity = '0';
+
+      if (pokemon == null){
+        createNotFound();
+      }
+    })
+  }
 }
 
-// GENERATE POKEMON LIST ITEM
+// GENERATE POKEMON LIST ITEM AND ADD IT TO THE DOM
 function createPokemonCard(pokemon) {
   const pokeListItem = document.createElement("div");
   pokeListItem.classList.add("poke-list-item");
@@ -48,27 +73,87 @@ function createPokemonCard(pokemon) {
   pokeGridContainer.appendChild(pokeListItem)
 }
 
+function createNotFound(){
+  console.log("Sorry, no matches found");
+  // add an html element that says no matches found
+}
+
 // API CALLS ----------------
 
 // Fetch a Pokemon by name
-const getPokemonByName = async name => {
-  const res = await fetch(`${URL}/pokemon/${name}`);
-  const pokemon = await res.json();
-  return pokemon;
+async function getPokemonByName(name) {
+  try{
+    //
+    const responsePromise = await fetchWithTimeout((`${URL}/pokemon/${name}`), {timeout: 2000})
+        .catch(e => {
+          console.log(e);
+        });
+
+    if (responsePromise.status != 200){
+
+      // stop loading screen
+      loading.style.opacity = '0';
+      console.log("status from api call: " + responsePromise.status);
+      // show lack of results from completed call in the dom
+      return null
+
+    } else {
+      // the .json method parses the json into a JavaScript object
+      const pokemon = await responsePromise.json();
+      console.log(pokemon);
+      return pokemon;
+    }
+
+  } catch (error){
+    console.log(error);
+  }
+
 }
 
-const getAllPokemonByType = async type => {
-  const res = await fetch(`${URL}/type/${type}`);
-  const pokemonType = await res.json();
-  const pokemon = [];
+async function getAllPokemonByType(type) {
+  try {
+    const res = await fetchWithTimeout(`${URL}/type/${type}`, {timeout: 3000})
+        .catch(e => {
+          console.log(e);
+          // createNotFound();
+          return null;
+        });
 
-  for(let i = 0; i < pokemonType.pokemon.length; i++) {
-    const tempPoke = await getPokemonByName(pokemonType.pokemon[i].pokemon.name);
-    if (tempPoke.sprites.front_default) {
-      pokemon.push(tempPoke);
+    if (res.status != 200){
+      console.log("status from api call: " + res.status);
+      return null;
     }
+
+    const pokemonType = await res.json();
+    const pokemon = [];
+
+    for(let i = 0; i < pokemonType.pokemon.length; i++) {
+      const pokePromise = getPokemonByName(pokemonType.pokemon[i].pokemon.name);
+      pokePromise.then((pokePromRes) => {
+        if (pokePromRes.sprites.front_default) {
+          pokemon.push(pokePromRes);
+          createPokemonCard(pokePromRes);
+        }
+      });
+    }
+    return pokemon;
+  } catch (error) {
+    loading.style.opacity = '0';
   }
-  return pokemon;
+
+}
+
+async function fetchWithTimeout(resource, options = {}) {
+  const { timeout = 8000 } = options;
+
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+  const response = await fetch(resource, {
+    ...options,
+    signal: controller.signal
+  });
+  clearTimeout(id);
+  return response;
 }
 
 
