@@ -1,3 +1,6 @@
+"use strict";
+console.log("search.js loaded");
+
 const URL = "https://pokeapi.co/api/v2";
 
 // DOM ELEMENTS
@@ -14,8 +17,8 @@ searchButton.addEventListener('click', searchForPokemon);
 async function searchForPokemon(event){
   console.log("Clicked target ID: " + event.currentTarget.id);
   const searchVal = inputField.value.toLowerCase();
-  console.log("Serach value: " + searchVal);
-  // make the waiting symbol on the dom visible
+  console.log("Search value: " + searchVal);
+  // while waiting for results, add loading to dom by making it visible
   loading.style.opacity = "1";
   pokeGridContainer.innerHTML = "";
   // get search type
@@ -91,6 +94,21 @@ function createPokemonCard(pokemon) {
 function createNotFound(){
   console.log("Sorry, no matches found");
   // add an html element that says no matches found
+
+  const errListItem = document.createElement("div");
+  errListItem.classList.add("poke-list-item");
+
+  const pokeInnerHTML = `
+    <div class="info-container">
+        <h2>MissingNo.</h2>
+        <p>No matching results</p>
+    </div>
+  <div class="img-container"><img src="../images/error.png">
+  </div>
+  `;
+
+  errListItem.innerHTML = pokeInnerHTML;
+  pokeGridContainer.appendChild(errListItem);
 }
 
 // API CALLS ----------------
@@ -110,7 +128,7 @@ async function getPokemonByName(name) {
       loading.style.opacity = '0';
       console.log("status from api call: " + responsePromise.status);
       // show lack of results from completed call in the dom
-      return null
+      return null;
 
     } else {
       // the .json method parses the json into a JavaScript object
