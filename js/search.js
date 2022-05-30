@@ -9,12 +9,13 @@ const loading = document.getElementById("loading-icon-container");
 
 // CHECK FOR FILTER AND SEARCH FOR POKEMON
 searchButton.onclick = async () => {
+  const searchVal = inputField.value.toLowerCase();
   loading.style.opacity = "1";
   pokeGridContainer.innerHTML = "";
   let option = selectField.value;
   let pokemon = [];
-  if (option === "name") {pokemon[0] = await getPokemonByName(`${inputField.value}`)}
-  else if (option === "type") {pokemon = await getAllPokemonByType(`${inputField.value}`)};
+  if (option === "name") {pokemon[0] = await getPokemonByName(`${searchVal}`)}
+  else if (option === "type") {pokemon = await getAllPokemonByType(`${searchVal}`)};
 
   for(let i = 0; i < pokemon.length; i++) {
     createPokemonCard(pokemon[i]);
