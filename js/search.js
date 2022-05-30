@@ -12,10 +12,10 @@ const loading = document.getElementById("loading-icon-container");
 searchButton.addEventListener('click', searchForPokemon);
 
 async function searchForPokemon(event){
-  console.log("Clicked target ID: " + event.target.id);
+  console.log("Clicked target ID: " + event.currentTarget.id);
   const searchVal = inputField.value.toLowerCase();
   console.log("Serach value: " + searchVal);
-  // add loading to dom
+  // make the waiting symbol on the dom visible
   loading.style.opacity = "1";
   pokeGridContainer.innerHTML = "";
   // get search type
@@ -24,7 +24,7 @@ async function searchForPokemon(event){
   if (option === "name") {
     // create a promise object
     const pokemonNamePromise = getPokemonByName(`${searchVal}`);
-    // when promise is fulfilled, execute callback function
+    // when promise is fulfilled, execute callback function on pokemon JSON
     pokemonNamePromise.then( (pokemon) => {
       loading.style.opacity = '0';
       if (pokemon != null) {
@@ -39,8 +39,12 @@ async function searchForPokemon(event){
   else if (option === "type") {
     const pokemonPromise = getAllPokemonByType(`${searchVal}`);
     pokemonPromise.then((pokemon) => {
-      console.log("All Pokemon for type found: " + pokemon);
       loading.style.opacity = '0';
+      console.log("All Pokemon of type found: " + pokemon.length);
+      // wait 1 second for all the api calls to complete
+      setTimeout( () => {
+        console.log("(1s later) All Pokemon of type found: " + pokemon.length);
+      }, 1000);
 
       if (pokemon == null){
         createNotFound();
@@ -70,7 +74,18 @@ function createPokemonCard(pokemon) {
 
   // Append card to the grid container
   pokeListItem.innerHTML = pokeInnerHTML;
+  // set id of new html element
+  pokeListItem.id = pokeName + "-poke-list-item";
+  // add it to the dom
   pokeGridContainer.appendChild(pokeListItem)
+
+  // add event listener to the card
+  pokeListItem.addEventListener('click', onCardClick)
+
+  function onCardClick(event){
+    console.log("Click on event target id: " + event.currentTarget.id);
+    console.log("You clicked on the card for: " + pokeName);
+  }
 }
 
 function createNotFound(){
@@ -125,7 +140,7 @@ async function getAllPokemonByType(type) {
     }
 
     const pokemonType = await res.json();
-    const pokemon = [];
+    let pokemon = [];
 
     for(let i = 0; i < pokemonType.pokemon.length; i++) {
       const pokePromise = getPokemonByName(pokemonType.pokemon[i].pokemon.name);
