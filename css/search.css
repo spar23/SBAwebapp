@@ -1,17 +1,33 @@
+h2, p {
+  font-family: 'Forum', cursive;
+  text-align: center;
+}
+
+h2 {
+  color: #383636;
+  font-size: 1.5em;
+}
+
+p {
+  color: #575656;
+  font-size: 1.2em;
+}
+
 #search-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: rgba(245, 246, 246, 0.6);
+  background-color: rgba(78, 78, 89, 0.6);
   width: 100%;
   height:100%;
   padding:10px;
+  overflow: hidden;
 }
 
 #pokemon-search {
   flex:1;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
 }
 
@@ -26,10 +42,11 @@ input,button,select {
   display: flex;
   flex-wrap: wrap;
   overflow-y: auto;
+  max-width: 100%;
 }
 
 .poke-list-item {
-  background-color: #c2c2c9;
+  background-color: rgba(233, 243, 243, 0.83);
   display: flex;
   flex-direction: column;
   width:10rem;
@@ -37,7 +54,7 @@ input,button,select {
   border-radius: 10px;
   padding: 5px;
   margin:20px;
-  box-shadow: 3px 5px 12px rgba(0, 0, 0, 0.47);
+  box-shadow: 5px 7px 8px rgba(0, 0, 0, 0.77);
 
   justify-content: space-around;
   align-items: center;
@@ -82,10 +99,14 @@ input,button,select {
   width:100px;
   height:100px;
 
-  border-left: 3px solid black;
-  border-right: 3px solid black;
+  border-left: 3px solid #ffffff;
+  border-right: 3px solid #ffffff;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+}
+
+#loading-icon-container p {
+  color: #c2bebe;
 }
 
 @keyframes spin {
