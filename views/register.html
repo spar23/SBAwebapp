@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>PokeTEK register</title>
+  <script defer src="../js/validation.js"></script>
   <link rel="stylesheet" href="../css/normalize.css">
   <link rel="stylesheet" href="../css/main.css">
   <link rel="stylesheet" href="../css/register.css">
@@ -25,7 +26,7 @@
     <h1>Register</h1>
 
     <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" id="email" required>
+    <input type="email" placeholder="Enter Email" name="email" id="email" required>
 
     <label for="psw"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
@@ -36,6 +37,7 @@
 
     <button type="submit" class="registerbtn">Register</button>
     <br>
+    <p id="form-error"></p>
   <div id="signin-container">
     <p>Already have an account? <a href="#">Sign in</a></p>
   </div>
