@@ -15,10 +15,18 @@ const elements = {
 };
 
 function init(){
+    // initialize dom elements
     elements.collectDOM();
+    // attach listener to the form submit button
     elements.formElement.addEventListener("submit", validateForm);
+    // we can listen on every letter...
+    // elements.passwordRepeatInp.addEventListener("keyup", onPasswordRepeatLetter);
 }
 
+function onPasswordRepeatLetter(event){
+    console.log(event.currentTarget);
+    // check against other password
+}
 
 function validateForm(event){
     event.preventDefault();
