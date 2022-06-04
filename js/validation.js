@@ -7,10 +7,11 @@ window.onload = init;
 const elements = {
     // we don't want to get the values immediately, so wrap them all in a function that can be executed on init
     collectDOM: function(){
-        this.formElement = document.getElementById("register-form");
-        this.formMessageElement = document.getElementById("form-error");
-        this.passwordInp = document.getElementById("psw");
-        this.passwordRepeatInp = document.getElementById("psw-repeat");
+        this.formElement = document.getElementById("contact-form");
+        // this.formMessageElement = document.getElementById("form-error");
+        this.name = document.getElementById("nme");
+        this.message = document.getElementById("msg");
+        this.email = document.getElementById("email");
     }
 };
 
@@ -19,41 +20,37 @@ function init(){
     elements.collectDOM();
     // attach listener to the form submit button
     elements.formElement.addEventListener("submit", validateForm);
-    // we can listen on every letter...
-    // elements.passwordRepeatInp.addEventListener("keyup", onPasswordRepeatLetter);
+    
+    
 }
 
-function onPasswordRepeatLetter(event){
-    console.log(event.currentTarget);
-    // check against other password
-}
+
 
 function validateForm(event){
     event.preventDefault();
     console.log("Form submission button clicked");
-    console.log(event.currentTarget);
+    // console.log(event.currentTarget);
     // get form data from <input> tags using .value
-    const passwordText = elements.passwordInp.value;
-    const passwordTextRpt = elements.passwordRepeatInp.value;
-    let validationText = comparePasswords(passwordText, passwordTextRpt);
-    if (validationText != null){
-        console.log(validationText);
+    const nameText = elements.name.value;
+    const messageText = elements.message.value;
+    const emailText = elements.email.value;
+    if(emailText === ""){
+        alert("Please input a email.")
+        console.log(emailText);
+
+    } else if (nameText === ""){
+        alert("Please input a name.")
+        console.log(nameText);
         // update the DOM with an error message
-        elements.formMessageElement.innerText = validationText;
-    } else {
-        prompt("Form data looks OK");
-    }
-}
+        // elements.formMessageElement.innerText = "Name must not be blank.";
 
-function comparePasswords(passwordInput1, passwordInput2){
-    console.log("P1: ", passwordInput1, ", P2", passwordInput2);
-    if (passwordInput1.length < 8){
-        return "Password must be at least 8 characters";
+    } else if(messageText === ""){
+        alert("Please input a message.")
+        console.log(messageText);
+        
     }
 
-    if(passwordInput2 !== passwordInput1){
-        return "Passwords do no match";
-    } else {
-        return null;
-    }
+    alert("Your message has been sent.")
 }
+
+
