@@ -7,16 +7,13 @@
 }
 
 body {
-  /* display: flex; */
+  
   background-color: beige;
   margin: 0;
   margin-left: 32px;
   margin-right: 32px;
-  /* flex-direction: column; */
-  /* width:100vw; */
-  /* height:100vh; */
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  /* padding: 20px; */
+  
 }
 
 .banner {
@@ -84,8 +81,3 @@ li.selected-link {
 }
 
 
-/* @keyframes hovered {
-  100% {
-    border: 1px solid rgba(255, 255, 255, 0.51);
-  }
-} */
