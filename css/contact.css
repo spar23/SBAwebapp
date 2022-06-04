@@ -3,28 +3,22 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
+    gap: 18px;
     height:60%;
-    width: 30%;
-    margin: auto;
+    width: 50%;
 }
-label, p {
-    color: white;
-}
+
 input, button {
     width:70%;
     height: 40px;
+    border: 1px solid lightgray;
+    padding: 12px;
 }
 
 a {
     color: grey;
 }
 
-h1 {
-    color: white;
-    padding: 10px;
-}
 
 #signin-container {
     padding:10px;
