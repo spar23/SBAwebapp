@@ -80,4 +80,10 @@ li.selected-link {
   font-weight: bold;
 }
 
+.red-text{
+  color: red;
+}
 
+.original-text{
+  color: black;
+}

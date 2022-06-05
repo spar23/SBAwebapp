@@ -6,7 +6,7 @@ window.onload = init;
 // DOM ELEMENTS
 const elements = {
    
-    collectDOM: function(){
+    initializeVariables: function(){
         this.formElement = document.getElementById("contact-form");
         this.name = document.getElementById("nme");
         this.message = document.getElementById("msg");
@@ -16,15 +16,16 @@ const elements = {
 
 function init(){
     // initialize dom elements
-    elements.collectDOM();
+    elements.initializeVariables();
     // attach listener to the form submit button
-    elements.formElement.addEventListener("submit", validateForm);   
+    document.getElementById("contact-form").addEventListener("submit", validateForm);   
+       
     
 }
 
 
 function validateForm(event){
-    event.preventDefault();
+     event.preventDefault();
     console.log("Form submission button clicked");
     const nameText = elements.name.value;
     const messageText = elements.message.value;
@@ -45,5 +46,7 @@ function validateForm(event){
 
     alert("Your message has been sent.")
 }
+
+
 
 
